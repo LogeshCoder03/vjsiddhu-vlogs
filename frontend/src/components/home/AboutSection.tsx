@@ -1,5 +1,5 @@
 import {motion} from "motion/react";
-import image from "@/asserts/Screenshot 2025-01-22 095942.png"
+import image from "@/assets/1000033807.webp"
 import {Button} from "@/components/ui/button.tsx";
 import {Users} from "lucide-react";
 

@@ -1,8 +1,10 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router'
 import Home from './pages/Home.tsx'
+import { Provider } from 'react-redux'
+import store from './redux/store.ts'
 
 const router=createBrowserRouter(
     createRoutesFromElements(
@@ -36,4 +38,9 @@ const router=createBrowserRouter(
     )
 )
 
-createRoot(document.getElementById('root')!).render(<App/>)
+createRoot(document.getElementById('root')!).render(
+        <Provider store={store}>
+            <RouterProvider router={router}/>
+        </Provider>
+
+)

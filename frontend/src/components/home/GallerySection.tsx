@@ -1,4 +1,4 @@
-import image from "@/asserts/Screenshot 2025-01-22 095942.png"
+import image from "@/assets/1000033807.webp"
 import {motion} from "motion/react"
 import { Link } from "react-router";
 import ErrorFallback from "@/components/ErrorFallback";

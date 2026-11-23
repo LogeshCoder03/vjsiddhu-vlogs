@@ -6,7 +6,7 @@ import type { HomePageProps } from "@/pages/Home";
 import type { EventType } from "@/types/event";
 import { Skeleton } from "../ui/skeleton";
 
-const EventSkeleton = () => {
+export const EventSkeleton = () => {
   return (
         <div className="max-w-md w-full rounded-2xl border border-border">
             <Skeleton className="h-50 w-full mb-3"/>
