@@ -6,5 +6,5 @@ export const baseApi=createApi({
     baseQuery:fetchBaseQuery({baseUrl:BASE_API_URL,credentials:"include"}),
     endpoints:()=>({}),
     tagTypes:["posts","comments","auth","events","user-feasts",
-        "user-bookings","admin-posts","unseen-clips","photoshoots"]
+        "user-bookings","admin-posts","unseen-clips","photoshoots","admin-photoshoots","admin-clips"]
 })

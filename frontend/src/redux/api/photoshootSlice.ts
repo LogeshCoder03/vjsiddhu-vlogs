@@ -1,9 +1,11 @@
+import type { PageParams, PaginationType } from "@/types/comman";
 import { ADMIN_API_URL, PHOTOSHOOT_API_URL } from "../constants";
 import { baseApi } from "./apiSlice";
+import type { PhotoShootType } from "@/types/photoShoot";
 
 const photoShootSlice=baseApi.injectEndpoints({
     endpoints:(builder)=>({
-        getPhotShoots:builder.query({
+        getPhotShoots:builder.query<PaginationType<PhotoShootType[]>,PageParams>({
             query:({page,size})=>({
                 url:`${PHOTOSHOOT_API_URL}?page=${page}&size=${size}`,
             }),

@@ -8,3 +8,11 @@ export interface PostType{
     updatedAt:Date;
     username:string;
 }
+export interface CommentType{
+    id:number
+    comment:string;
+    likes:number;
+    username:string;
+    postId:number;
+    createdAt:Date
+}

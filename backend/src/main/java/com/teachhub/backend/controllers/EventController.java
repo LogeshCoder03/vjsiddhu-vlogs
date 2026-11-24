@@ -26,7 +26,6 @@ public class EventController {
             @RequestParam(required = true,name = "event_type") EventType eventType,
              @RequestBody RequestEventDto eventDto,
             Authentication authentication){
-        System.out.println(eventDto);
         eventService.create(eventType,eventDto,authentication.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseData("Booking registered successfully."));
     }

@@ -1,9 +1,11 @@
+import type { PageParams } from "@/types/comman";
 import { COMMENTS_API_URL } from "../constants";
 import { baseApi } from "./apiSlice";
+import type { CommentType } from "@/types/post";
 
 const commentsSlice=baseApi.injectEndpoints({
     endpoints:(build)=>({
-        getComments:build.query({
+        getComments:build.query<CommentType[],PageParams&{postId:string}>({
             query:({page,size,postId})=>{
                 return{ url:`${COMMENTS_API_URL}/${postId}?page=${page}&size=${size}`,}
             },

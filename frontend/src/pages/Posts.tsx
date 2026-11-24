@@ -30,14 +30,16 @@ import type { PostType } from "@/types/post";
 function Posts() {
     const [open,onOpen]=useState<boolean>(false);
     const [pageNumber,setPageNumber]=useState<number>(0);
-    const {isLoading,data:posts}=useGetPostsQuery({page:pageNumber});
+    const {isLoading,data:posts}=useGetPostsQuery({page:pageNumber,size:6});
     const [createPost,{isLoading:createLoading,error:createError,data:createData}]=useCreatePostMutation()
-    const [likePost]=useLikePostMutation()
+    const [likePost,{error:likeError}]=useLikePostMutation()
     const [deletePost,{isLoading:deleteLoading,error:deleteError,data:deleteData}]=useDeletePostMutation();
     const {handleSubmit,register,formState:{errors,isValid},setValue,reset}=useForm({
         resolver:zodResolver(postSchema),
         mode:"onChange"
     })
+    console.log(likeError);
+    
     createError?toast.add({type:"error",title:createError?.data?.message}):deleteError&&toast.add({type:"error",title:deleteError?.data?.message})
     createData?toast.add({type:"success",title:createData.message}):deleteData&&toast.add({type:"success",title:deleteData.message})
     const onCreate=(payload:PostSchemaType)=>{
@@ -53,8 +55,8 @@ function Posts() {
         likePost(id);
     }
     
-    const pages=getPagination(posts?.number+1,posts?.totalPages);
-    const {data:user,isLoading:userLoading}=useGetCurrentUserQuery(false);
+    const pages=getPagination(posts?.number!+1,posts?.totalPages!);
+    const {data:user,isLoading:userLoading}=useGetCurrentUserQuery(undefined);
     const isAdmin=user?.roles?.find(role=>role.authority==="USER");
     if(isLoading||userLoading)return<Loader/>;
     return (
@@ -118,7 +120,9 @@ function Posts() {
                                 <p className="font-semibold">{post.title}</p>
                                 <p className="text-xs text-muted-foreground">{new Date(post.createdAt).toDateString()}</p>
                             </div>
+                            {isAdmin&&
                             <Button variant="destructive" size="icon-lg" onClick={()=>deletePost(post.id)}>{deleteLoading?<Spinner/>:<Trash2 size={18}/>}</Button>
+                            }
                         </div>
                         <p className="mb-4 text-sm leading-relaxed">
                             {post.content}
@@ -169,7 +173,7 @@ function Posts() {
                         {pages.map((p,i)=>(
                             p==="..."?(<PaginationEllipsis key={i}/>):(
                             <PaginationItem key={i}>
-                                <PaginationLink isActive={posts?.number+1===p} onClick={()=>setPageNumber(p as number)}>
+                                <PaginationLink isActive={posts?.number!+1===p} onClick={()=>setPageNumber(p as number)}>
                                     {p}
                                 </PaginationLink>
                             </PaginationItem>

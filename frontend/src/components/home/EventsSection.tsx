@@ -5,6 +5,7 @@ import ErrorFallback from "../ErrorFallback";
 import type { HomePageProps } from "@/pages/Home";
 import type { EventType } from "@/types/event";
 import { Skeleton } from "../ui/skeleton";
+import type { PaginationType } from "@/types/comman";
 
 export const EventSkeleton = () => {
   return (
@@ -20,7 +21,7 @@ export const EventSkeleton = () => {
   )
 }
 
-const EventsSection = ({data:events,isLoading,error,onNavigate}:HomePageProps<EventType>) => {
+const EventsSection = ({data:events,isLoading,error,onNavigate}:HomePageProps<PaginationType<EventType[]>>) => {
     if (error) return <ErrorFallback message={error.error}/>
     if (events?.content) {
         return 

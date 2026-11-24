@@ -1,9 +1,11 @@
 import {baseApi} from "@/redux/api/apiSlice";
 import {FEAST_API_URL} from "@/redux/constants.ts";
+import type { PageParams, PaginationType } from "@/types/comman";
+import type { EventType } from "@/types/event";
 
 export const eventSlice=baseApi.injectEndpoints({
     endpoints:(builder)=>({
-        getEvents:builder.query({
+        getEvents:builder.query<PaginationType<EventType[]>,PageParams>({
             query:({page,size})=>({
                     url:`${FEAST_API_URL}?page=${page}&size=${size}`
             }),
@@ -23,8 +25,8 @@ export const eventSlice=baseApi.injectEndpoints({
             },
             invalidatesTags:["events"]
         }),
-        getEvent:builder.query({
-            query:(id:number)=>({
+        getEvent:builder.query<EventType,{id:string}>({
+            query:({id})=>({
                     url:`${FEAST_API_URL}/${id}`
             }),
             providesTags:["events"]

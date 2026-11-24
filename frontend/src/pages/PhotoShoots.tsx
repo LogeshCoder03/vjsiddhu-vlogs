@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import { useGetUnseenClipsQuery } from "@/redux/api/clipsSlice";
 import { useGetPhotShootsQuery } from "@/redux/api/photoshootSlice";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ErrorFallback from "@/components/ErrorFallback";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -64,7 +63,7 @@ function PhotoShoots() {
         error: clipError,
         isLoading: clipLoading,
     } = useGetUnseenClipsQuery({ page: pageNumber, size: 10 });
-    const pages=getPagination(photoshoots?.number+1,photoshoots?.totalPages);
+    const pages=getPagination(photoshoots?.number!+1,photoshoots?.totalPages!);
     if (photoshootError) return <ErrorFallback message={photoshootError.data.message} />;
     if (photoshootError) return <ErrorFallback message={clipError?.data.message} />;
     if (clips?.empty && photoshoots?.empty) {
@@ -122,7 +121,7 @@ function PhotoShoots() {
                     {pages.map((p,i)=>(
                         p==="..."?(<PaginationEllipsis key={i}/>):(
                         <PaginationItem key={i}>
-                            <PaginationLink isActive={(photoshoots?.number+1===p)&&(clips?.number+1===p)} onClick={()=>setPageNumber(p as number)}>
+                            <PaginationLink isActive={(photoshoots?.number!+1===p)&&(clips?.number!+1===p)} onClick={()=>setPageNumber(p as number)}>
                                 {p}
                             </PaginationLink>
                         </PaginationItem>

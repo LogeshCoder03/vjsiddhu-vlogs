@@ -1,11 +1,12 @@
-import type { LoginType, SignUpType } from "@/lib/types";
+import type { SignUpType } from "@/validations/auth";
 import { AUTH_API_URL } from "../constants";
 import {baseApi} from "./apiSlice";
+import type { CurrentUser, LoginType } from "@/types/auth";
 
 const authSlice=baseApi.injectEndpoints({
     endpoints:(build)=>({
-        register:build.mutation({
-            query:(payload:SignUpType)=>({
+        register:build.mutation<any,SignUpType>({
+            query:(payload)=>({
                 url:`${AUTH_API_URL}/signup`,
                 method:"POST",
                 headers:{
@@ -14,8 +15,8 @@ const authSlice=baseApi.injectEndpoints({
                 body:payload,
             }),
         }),
-        login:build.mutation({
-            query:(payload:LoginType)=>({
+        login:build.mutation<any,LoginType>({
+            query:(payload)=>({
                 url:`${AUTH_API_URL}/signin`,
                 method:"POST",
                 headers:{
@@ -26,7 +27,7 @@ const authSlice=baseApi.injectEndpoints({
             }),
             invalidatesTags:["auth"]
         }),
-        getCurrentUser:build.query({
+        getCurrentUser:build.query<CurrentUser,undefined>({
             query:()=>({
                 url:`${AUTH_API_URL}/me`,
                 credentials:"include",

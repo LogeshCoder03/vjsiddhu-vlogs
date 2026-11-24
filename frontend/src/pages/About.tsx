@@ -6,7 +6,9 @@ import { IconBrandInstagramFilled } from "@tabler/icons-react";
 import { motion } from "motion/react";
 
 export default function AboutPage() {
-    const {data:members,isLoading,error}=useGetAboutsQuery(false);
+    const {data:members,isLoading,error}=useGetAboutsQuery(null);
+    console.log(members);
+    
     if(isLoading)return<Loader/>;
     if(error)return<ErrorFallback message={error?.data?.message}/>;
     return (
@@ -19,7 +21,7 @@ export default function AboutPage() {
             The creative minds behind our journey.
             </p>
         </div>
-        {members.map((member:AboutType, idx:number) => (
+        {members?.map((member:AboutType, idx:number) => (
             <motion.div
             key={member.id}
             initial={{ opacity: 0, y: 40 }}

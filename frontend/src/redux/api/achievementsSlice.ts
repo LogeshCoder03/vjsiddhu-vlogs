@@ -1,9 +1,11 @@
+import type { PaginationType } from "@/types/comman";
 import { ACHIEVEMENT_API_URL } from "../constants";
 import {  baseApi } from "./apiSlice";
+import type { Achivement } from "@/types/achievement";
 
 const achievementsSlice=baseApi.injectEndpoints({
     endpoints:(builder)=>({
-        getAchievements:builder.query({
+        getAchievements:builder.query<PaginationType<Achivement[]>,null>({
             query:()=>({
                 url:ACHIEVEMENT_API_URL,
                 credentials:"include",

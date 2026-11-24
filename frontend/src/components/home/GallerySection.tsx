@@ -7,8 +7,9 @@ import type { HomePageProps } from "@/pages/Home";
 import type { ClipsType, PhotoShootType } from "@/types/photoShoot";
 import { Camera, Clock } from "lucide-react";
 import { IconBrandInstagramFilled } from "@tabler/icons-react";
+import type { PaginationType } from "@/types/comman";
 
-function GallerySection({clip,photoshoot}:{clip:HomePageProps<ClipsType>,photoshoot:HomePageProps<PhotoShootType>}) {
+function GallerySection({clip,photoshoot}:{clip:HomePageProps<PaginationType<ClipsType[]>>,photoshoot:HomePageProps<PaginationType<PhotoShootType[]>>}) {
     const {data:clips,error:clipsError,isLoading:clipsLoading}=clip;
     const {data:photoshoots,error:photoShootError,isLoading:photoshootLoading}=photoshoot;
     if(clipsError)return<ErrorFallback message={clipsError.error}/>

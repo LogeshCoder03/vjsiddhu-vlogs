@@ -1,19 +1,22 @@
+import type { PageParams, PaginationType } from "@/types/comman";
 import { POSTS_API_URL } from "../constants";
 import {baseApi} from "./apiSlice";
+import type { PostType } from "@/types/post";
 
 const postSlice=baseApi.injectEndpoints({
     endpoints:(build)=>({
-        getPosts:build.query({
-            query:()=>({
+        getPosts:build.query<PaginationType<PostType[]>,PageParams>({
+            query:({page})=>({
                 url:POSTS_API_URL,
-                credentials:"include"
+                params:{
+                    page
+                }
             }),
             providesTags:["posts"]
         }),
-        getPost:build.query({
-            query:(id:number)=>({
+        getPost:build.query<PostType,{id:string}>({
+            query:(id)=>({
                 url:`${POSTS_API_URL}/${id}`,
-                credentials:"include"
             }),
             providesTags:["posts"]
         }),
@@ -21,7 +24,6 @@ const postSlice=baseApi.injectEndpoints({
             query:(formData:FormData)=>({
                 url:POSTS_API_URL,
                 method:"POST",
-                credentials:"include",
                 body:formData
             }),
             invalidatesTags:["posts"]
@@ -37,7 +39,6 @@ const postSlice=baseApi.injectEndpoints({
             query:(id:number)=>({
                 url:`${POSTS_API_URL}/like/${id}`,
                 method:"POST",
-                credentials:"include"
             }),
             invalidatesTags:["posts"]
         }),

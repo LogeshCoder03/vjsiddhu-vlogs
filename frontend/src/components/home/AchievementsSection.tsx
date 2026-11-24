@@ -4,6 +4,7 @@ import { Skeleton } from "../ui/skeleton";
 import type { HomePageProps } from "@/pages/Home";
 import type {Achivement} from '@/types/achievement'
 import ErrorFallback from "../ErrorFallback";
+import type { PaginationType } from "@/types/comman";
 
 const icons={
     trophy:Trophy,
@@ -11,7 +12,7 @@ const icons={
     award:Award
 }
 
-const AchievementsSection = ({data:achievements,error,isLoading}:HomePageProps<Achivement>) => {
+const AchievementsSection = ({data:achievements,error,isLoading}:HomePageProps<PaginationType<Achivement[]>>) => {
     const stats=[
         {value:"57M+",label:"Subscribers"},
         { value: "500+", label: "Projects" },

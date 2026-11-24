@@ -64,7 +64,8 @@ function Events() {
     isLoading,
     error,
   } = useGetEventsQuery({ page: pageNumber - 1, size: 10 });
-  const { data: user, isLoading: userLoading } = useGetCurrentUserQuery(false);
+  const { data: user, isLoading: userLoading } =
+    useGetCurrentUserQuery(undefined);
   const isAdmin = false;
   const {
     handleSubmit,
@@ -112,7 +113,7 @@ function Events() {
     reset();
     onOpen({ create: false, delete: false });
   };
-  const pages = getPagination(events?.number + 1, events?.totalPages);
+  const pages = getPagination(events?.number! + 1, events?.totalPages!);
   if (userLoading) return <Loader />;
   if (error) return <ErrorFallback message={error?.data?.message} />;
   return (
